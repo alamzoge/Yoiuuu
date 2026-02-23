@@ -2,104 +2,141 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя душа, моя жизнь...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Моя любимая...</title>
     
     <style>
-        /* إعدادات الخلفية: تدرج لوني عميق وأنيق */
+        /* إعدادات الخلفية ومنع التمرير العشوائي في الهاتف */
         body {
-            /* تدرج من الأحمر الداكن إلى الأسود المائل للبنفسجي */
-            background: linear-gradient(135deg, #4a0010, #1a0020, #000000);
-            font-family: 'Times New Roman', Times, serif; /* خط كلاسيكي شاعري */
-            color: #ffffff; /* لون النص أبيض ليتناسب مع الخلفية الداكنة */
+            background: linear-gradient(to bottom, #2b0015, #000000); /* تدرج ليلي رومانسي */
+            font-family: 'Georgia', serif;
+            color: #ffffff;
             margin: 0;
             padding: 0;
-            display: flex; /* لتوسيط المحتوى */
+            display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow: hidden; /* يمنع ظهور أشرطة التمرير بسبب القلوب العائمة */
+            position: relative;
+        }
+
+        /* حاوية القلوب العائمة في الخلفية */
+        #hearts-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* لجعل القلوب خلف النص */
+            pointer-events: none; /* لمنع القلوب من إعاقة لمس الشاشة */
+        }
+
+        /* تنسيق القلب الفردي العائم */
+        .floating-heart {
+            position: absolute;
+            bottom: -10%; /* تبدأ من أسفل الشاشة */
+            color: #ff4d6d;
+            opacity: 0.6;
+            animation: floatUp linear forwards; /* حركة الطفو إلى الأعلى */
+        }
+
+        /* البطاقة الرئيسية التي تحتوي على النص */
+        .message-card {
+            background: rgba(255, 255, 255, 0.08); /* زجاج شفاف */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 40px 25px;
+            border-radius: 25px;
+            width: 85%; /* عرض مناسب جداً للهاتف */
+            max-width: 380px; /* لا يتسع كثيراً في الشاشات الكبيرة للحفاظ على شكل الهاتف */
             text-align: center;
-            overflow: hidden; /* لمنع ظهور أشرطة التمرير إذا لم تكن ضرورية */
-        }
-        
-        /* إعدادات البطاقة الزجاجية الشفافة */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05); /* لون أبيض شفاف جداً */
-            backdrop-filter: blur(15px); /* تأثير ضبابي (زجاجي) لما خلف البطاقة */
-            border: 1px solid rgba(255, 255, 255, 0.1); /* إطار رقيق جداً وشفاف */
-            padding: 50px 40px;
-            border-radius: 20px; /* زوايا دائرية ناعمة */
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5); /* ظل داكن لإبراز البطاقة */
-            max-width: 650px;
-            width: 85%;
-            animation: fadeIn 2s ease-in-out; /* حركة ظهور تدريجي ناعمة للبطاقة */
+            z-index: 10; /* لجعل النص فوق القلوب */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            /* حركة البطاقة نفسها تطفو قليلاً في مكانها */
+            animation: cardFloat 4s ease-in-out infinite alternate;
         }
 
-        /* تنسيق العنوان الرئيسي */
-        h1 {
-            font-size: 2.8em;
-            margin-bottom: 15px;
-            font-style: italic;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* توهج خفيف للنص */
+        /* إعدادات حركة ظهور النصوص تدريجياً */
+        .animate-text {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUpFade 1.5s ease forwards;
         }
 
-        /* تنسيق القلب النابض */
-        .pulsing-heart {
-            color: #ff3366; /* أحمر وردي ساطع */
-            font-size: 60px;
-            margin: 20px 0;
-            display: inline-block;
-            animation: pulse 1.5s infinite; /* تشغيل حركة النبض باستمرار */
+        /* تأخير ظهور العناصر لعمل قصة متسلسلة */
+        h1.animate-text { animation-delay: 0.5s; font-size: 2.2em; font-style: italic; margin-bottom: 5px; color: #ffb3c6; }
+        h2.animate-text { animation-delay: 1.5s; font-size: 1.8em; margin-bottom: 25px; }
+        p.animate-text { animation-delay: 3.0s; font-size: 1.15em; line-height: 1.7; color: #e0e0e0; }
+        .signature.animate-text { animation-delay: 5.0s; font-size: 1.3em; color: #ff4d6d; font-weight: bold; margin-top: 30px; }
+
+        /* --- تعريف الحركات (Animations) --- */
+
+        /* حركة طفو القلوب من الأسفل للأعلى */
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
         }
 
-        /* تنسيق نصوص الرسالة */
-        p {
-            font-size: 1.3em;
-            line-height: 1.8;
-            margin-bottom: 25px;
-            color: #e0e0e0; /* أبيض مائل للرمادي ليكون مريحاً للعين */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* ظل خفيف جداً للنص */
-        }
-
-        /* تنسيق التوقيع */
-        .signature {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #ff99aa; /* لون وردي ناعم للتوقيع */
-            margin-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2); /* خط فاصل شفاف */
-            padding-top: 20px;
-        }
-
-        /* برمجة حركة النبض (Pulse Animation) للقلب */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.15); text-shadow: 0 0 20px rgba(255, 51, 102, 0.6); }
-            100% { transform: scale(1); }
-        }
-
-        /* برمجة حركة الظهور التدريجي (Fade In) للبطاقة */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        /* حركة انزلاق النص من الأسفل */
+        @keyframes slideUpFade {
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* حركة طفو البطاقة الزجاجية صعوداً وهبوطاً بنعومة */
+        @keyframes cardFloat {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-15px); }
         }
     </style>
 </head>
 <body>
 
-    <div class="glass-card">
+    <div id="hearts-container"></div>
+
+    <div class="message-card">
+        <h1 class="animate-text">Моя любимая,</h1>
+        <h2 class="animate-text">Прости меня. 💔</h2>
         
-        <h1>Моя душа, моя жизнь...</h1>
+        <p class="animate-text">
+            Каждое мгновение без твоей улыбки — это суровое испытание для меня. Я осознал свою ошибку и обещаю сделать всё, чтобы ты снова была счастлива. Моя жизнь не имеет смысла без тебя.
+        </p>
         
-        <div class="pulsing-heart">❤️</div>
-        
-        <p>Мне невыносимо больно осознавать, что я причинил боль той, кого люблю больше всего на свете. Каждая слеза, которая падает из твоих глаз — это рана в моем сердце.</p>
-        
-        <p>Ты — мой воздух, моя надежда и мой единственный смысл. Я искренне прошу у тебя прощения. Пожалуйста, дай мне шанс все исправить и снова увидеть твою прекрасную улыбку. Я не могу жить без тебя.</p>
-        
-        <p class="signature">С безграничной любовью и глубоким сожалением...<br>Твой навсегда.</p>
-        
+        <p class="signature animate-text">Я люблю тебя бесконечно.<br>Твой навсегда.</p>
     </div>
 
+    <script>
+        function createHeart() {
+            const container = document.getElementById('hearts-container');
+            const heart = document.createElement('div');
+            
+            // إضافة كلاس القلب والمحتوى
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '❤️';
+            
+            // تحديد موقع عشوائي للقلب على الشاشة (من اليسار لليمين)
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            // تحديد حجم عشوائي للقلب لجعله يبدو واقعياً
+            const size = Math.random() * 20 + 10; 
+            heart.style.fontSize = size + 'px';
+            
+            // تحديد سرعة عشوائية لكل قلب (بين 4 و 9 ثواني للوصول للأعلى)
+            const duration = Math.random() * 5 + 4;
+            heart.style.animationDuration = duration + 's';
+            
+            // إضافة القلب إلى الشاشة
+            container.appendChild(heart);
+            
+            // مسح القلب من الكود بعد انتهاء حركته لتخفيف الحمل على الهاتف
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // إنشاء قلب جديد كل 300 جزء من الثانية (0.3 ثانية)
+        setInterval(createHeart, 300);
+    </script>
 </body>
 </html>
