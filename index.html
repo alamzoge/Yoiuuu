@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя душа, моя жизнь...</title>
+    
+    <style>
+        /* إعدادات الخلفية: تدرج لوني عميق وأنيق */
+        body {
+            /* تدرج من الأحمر الداكن إلى الأسود المائل للبنفسجي */
+            background: linear-gradient(135deg, #4a0010, #1a0020, #000000);
+            font-family: 'Times New Roman', Times, serif; /* خط كلاسيكي شاعري */
+            color: #ffffff; /* لون النص أبيض ليتناسب مع الخلفية الداكنة */
+            margin: 0;
+            padding: 0;
+            display: flex; /* لتوسيط المحتوى */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: hidden; /* لمنع ظهور أشرطة التمرير إذا لم تكن ضرورية */
+        }
+        
+        /* إعدادات البطاقة الزجاجية الشفافة */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05); /* لون أبيض شفاف جداً */
+            backdrop-filter: blur(15px); /* تأثير ضبابي (زجاجي) لما خلف البطاقة */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* إطار رقيق جداً وشفاف */
+            padding: 50px 40px;
+            border-radius: 20px; /* زوايا دائرية ناعمة */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5); /* ظل داكن لإبراز البطاقة */
+            max-width: 650px;
+            width: 85%;
+            animation: fadeIn 2s ease-in-out; /* حركة ظهور تدريجي ناعمة للبطاقة */
+        }
+
+        /* تنسيق العنوان الرئيسي */
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-style: italic;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* توهج خفيف للنص */
+        }
+
+        /* تنسيق القلب النابض */
+        .pulsing-heart {
+            color: #ff3366; /* أحمر وردي ساطع */
+            font-size: 60px;
+            margin: 20px 0;
+            display: inline-block;
+            animation: pulse 1.5s infinite; /* تشغيل حركة النبض باستمرار */
+        }
+
+        /* تنسيق نصوص الرسالة */
+        p {
+            font-size: 1.3em;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: #e0e0e0; /* أبيض مائل للرمادي ليكون مريحاً للعين */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* ظل خفيف جداً للنص */
+        }
+
+        /* تنسيق التوقيع */
+        .signature {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #ff99aa; /* لون وردي ناعم للتوقيع */
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2); /* خط فاصل شفاف */
+            padding-top: 20px;
+        }
+
+        /* برمجة حركة النبض (Pulse Animation) للقلب */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); text-shadow: 0 0 20px rgba(255, 51, 102, 0.6); }
+            100% { transform: scale(1); }
+        }
+
+        /* برمجة حركة الظهور التدريجي (Fade In) للبطاقة */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-card">
+        
+        <h1>Моя душа, моя жизнь...</h1>
+        
+        <div class="pulsing-heart">❤️</div>
+        
+        <p>Мне невыносимо больно осознавать, что я причинил боль той, кого люблю больше всего на свете. Каждая слеза, которая падает из твоих глаз — это рана в моем сердце.</p>
+        
+        <p>Ты — мой воздух, моя надежда и мой единственный смысл. Я искренне прошу у тебя прощения. Пожалуйста, дай мне шанс все исправить и снова увидеть твою прекрасную улыбку. Я не могу жить без тебя.</p>
+        
+        <p class="signature">С безграничной любовью и глубоким сожалением...<br>Твой навсегда.</p>
+        
+    </div>
+
+</body>
+</html>
